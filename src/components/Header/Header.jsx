@@ -48,9 +48,9 @@ const Header = () => {
 
     return (
         <header className='shadow-xl bg-white flex justify-between items-center px-6 py-2 '>
-
             <div className='flex items-center gap-5'>
-                <FaBars className='text-xl cursor-pointer' onClick={sideBarHandler} />
+                <FaBars className='text-xl cursor-pointer lg:hidden' onClick={sideBarHandler} />
+                <h1 className='font-bold hidden lg:block'>Dashboard</h1>
                 <img src="/assets/logo.png" alt="logo" className='w-[6rem] lg:hidden ' />
             </div>
             <div className='flex items-center gap-2 relative'>

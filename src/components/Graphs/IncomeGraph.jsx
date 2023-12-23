@@ -7,9 +7,9 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale)
 const IncomeGraph = ({ data }) => {
 
     const values = {
-        labels: data[0].attributes.roomBookings.bookedRooms.map((i) => i.type),
+        labels: data.attributes.roomBookings.bookedRooms.map((i) => i.type),
         datasets: [{
-            data: data[0].attributes.roomBookings.bookedRooms.map((i) => i.quantity),
+            data: data.attributes.roomBookings.bookedRooms.map((i) => i.quantity),
             backgroundColor: [
                 'rgb(28, 88, 2)',
                 'purple',

@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 const Staff = () => {
     const navigate = useNavigate()
     const { user } = useSelector((user) => user.userReducer)
+    const { decision } = useSelector((user) => user.sidebarReducer)
 
 
     const navigation = () => {
@@ -22,20 +23,29 @@ const Staff = () => {
     return (
         <>
             <div className='grid grid-cols-12 min-h-screen'>
-                <div className='sidebar col-span-2 h-full'>
+                <div className='sidebar lg:col-span-2 h-full hidden lg:block'>
                     {
                         user && <Sidebar user={JSON.parse(user)} />
                     }
                 </div>
-                <div className='col-span-10 '>
-                    <header className='fixed top-0 left-[17%] right-0 '>
+                <div className={`sidebar shadowy lg:col-span-2 h-full block min-w-[12rem] ${decision ? "not" : "there"} lg:hidden`} style={{ transformOrigin: 'left', transition: 'all ease 300ms' }}>
+                    {
+                        user && <Sidebar user={JSON.parse(user)} />
+                    }
+                </div>
+
+                <div className='lg:col-span-10 col-span-12'>
+                    <header className={`fixed z-10 top-0 lg:left-[17%] left-0 right-0 `}>
                         <Header />
                     </header>
-                    <main className='bg-[#f0f3fb] h-[50rem] w-full ms-[20%] px-3 py-7'>
-                        hi
-                    </main>
+                    {
+
+                        <main className='bg-[#f0f3fb] h-full w-full lg:ms-[20%] px-3 py-7'>
+
+                        </main>
+                    }
                 </div>
-            </div>
+            </div >
         </>
     )
 }

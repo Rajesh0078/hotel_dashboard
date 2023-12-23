@@ -2,20 +2,35 @@ import React from 'react'
 import "./sidebar.css"
 import { MdBorderColor } from "react-icons/md";
 import { FaCalendar, FaDoorOpen, FaEnvelopeOpenText, FaGear, FaHouse, FaRegCircleUser, FaUserTie } from "react-icons/fa6";
+import { GiCrossedBones } from "react-icons/gi";
 import { BsIntersect } from "react-icons/bs";
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { sideBarAction } from '../../store/actions/sidebarAction';
 
 const Sidebar = ({ user }) => {
 
     const { decision } = useSelector((user) => user.sidebarReducer)
+    const dispatch = useDispatch()
+
+    const sideBarHandler = () => {
+        if (decision) {
+            dispatch(sideBarAction(false))
+        } else {
+            dispatch(sideBarAction(true))
+        }
+    }
 
     return (
         <>
             {
                 <div className='flex items-center flex-col h-full '>
-                    <div>
+                    <div className='lg:block hidden'>
                         <img src="/assets/logo.png" alt="logo" className='w-[8rem] ' />
+                    </div>
+                    <div className='flex lg:hidden items-center gap-9'>
+                        <img src="/assets/logo.png" alt="logo" className='w-[6rem] ' />
+                        <GiCrossedBones className='text-blue-400 text-xl cursor-pointer' onClick={sideBarHandler} />
                     </div>
                     <div className='shadowy w-full h-full pt-5 text-center'>
                         <div>

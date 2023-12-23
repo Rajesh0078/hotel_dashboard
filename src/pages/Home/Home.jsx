@@ -22,6 +22,7 @@ const Home = () => {
     const [date, setDate] = useState(new Date(2023, 10, 10))
     const [data, setData] = useState([])
     const [isDateVisible, setIsDateVisible] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
 
     const navigation = () => {
@@ -46,18 +47,20 @@ const Home = () => {
 
 
     const getDatabyDate = async () => {
-        const { data } = await axios.get('https://hotel-dashboard-w4kx.onrender.com/api/hotels/')
-        let currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
-        const result = data.data.filter((val) => val.attributes.date === currentDate)
-        if (result.length) {
-            setData(result)
-        }
-        else {
+        if (date.getMonth() === 10) {
+            setIsLoading(true)
+            const { data } = await axios.get(`https://hotel-dashboard-w4kx.onrender.com/api/hotels/${date.getDate()}`)
+            if (data.data) {
+                setData(data)
+                setIsLoading(false)
+            }
+            else {
+                setData([])
+            }
+        } else {
             setData([])
         }
     }
-
-
 
     useEffect(() => {
         navigation()
@@ -73,51 +76,63 @@ const Home = () => {
                             user && <Sidebar user={JSON.parse(user)} />
                         }
                     </div>
+                    <div className={`sidebar shadowy lg:col-span-2 h-full block min-w-[12rem] ${decision ? "not" : "there"} lg:hidden`} style={{ transformOrigin: 'left', transition: 'all ease 300ms' }}>
+                        {
+                            user && <Sidebar user={JSON.parse(user)} />
+                        }
+                    </div>
 
                     <div className='lg:col-span-10 col-span-12'>
                         <header className={`fixed z-10 top-0 lg:left-[17%] left-0 right-0 `}>
                             <Header />
                         </header>
-                        <main className='bg-[#f0f3fb]  w-full lg:ms-[20%] px-3 py-7'>
-                            <div className='pt-12 px-4'>
-                                <div className='sm:flex justify-between px-3 '>
-                                    <div className='sm:block flex justify-between sm:pb-0 pb-3'>
-                                        <h2 className='lg:text-2xl md:text-xl font-semibold text-blue-600 mb-1'>Hi, Welcome Back!</h2>
-                                        <p className='md:text-xl text-md text-gray-600'>Spark Dashboard</p>
-                                    </div>
-                                    <div className='flex lg:gap-7 flex-wrap justify-between sm:gap-3  text-gray-600 md:text-md'>
-                                        <div className='me-6 relative z-0'>
-                                            <div onClick={calenderHandler} className=' cursor-pointer'>
-                                                <h2>Choose date <SlCalender className='sm:inline ms-3 hidden' /></h2>
-                                                <p className='lg:pt-2 pt-1'>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</p>
+                        {
+                            !isLoading ?
+                                <main className='bg-[#f0f3fb] h-full w-full lg:ms-[20%] px-3 py-7'>
+                                    <div className='pt-12 px-4'>
+                                        <div className='sm:flex justify-between px-3 '>
+                                            <div className='sm:block flex justify-between sm:pb-0 pb-3'>
+                                                <h2 className='lg:text-2xl md:text-xl font-semibold text-blue-600 mb-1'>Hi, Welcome Back!</h2>
+                                                <p className='md:text-xl text-md text-gray-600'>Spark Dashboard</p>
                                             </div>
-                                            {
-                                                isDateVisible &&
-                                                <div className='absolute top-15 left-[-10%] w-[22rem]'>
-                                                    <Calender onChange={changeHandler} value={date} />
+                                            <div className='flex lg:gap-7 flex-wrap justify-between sm:gap-3  text-gray-600 md:text-md'>
+                                                <div className='me-6 relative z-0'>
+                                                    <div onClick={calenderHandler} className=' cursor-pointer'>
+                                                        <h2>Choose date <SlCalender className='sm:inline ms-3 hidden' /></h2>
+                                                        <p className='lg:pt-2 pt-1'>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</p>
+                                                    </div>
+                                                    {
+                                                        isDateVisible &&
+                                                        <div className='absolute top-15 left-[-10%] w-[22rem]'>
+                                                            <Calender onChange={changeHandler} value={date} />
+                                                        </div>
+                                                    }
                                                 </div>
-                                            }
+                                                <div className=''>
+                                                    <h2>Customer Ratings</h2>
+                                                    {
+                                                        data.data && <Ratings data={data.data} />
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className=''>
-                                            <h2>Customer Ratings</h2>
-                                            {
-                                                data.length && <Ratings data={data} />
-                                            }
-                                        </div>
+                                        {data.data ? <Cards data={data.data} /> : <center className='mt-12 text-2xl '>Choose Date only in the november month</center>}
                                     </div>
+                                    {data.data &&
+                                        <div className='flex px-5 gap-5'>
+                                            <div className='h-[20rem] basis-2/3 bg-white rounded-xl sm:block hidden shadowx'></div>
+                                            <div className='sm:basis-1/3 w-full bg-white h-[20rem] shadowx rounded-xl py-2 flex justify-center'>
+                                                {data.data && <IncomeGraph data={data.data} />}
+                                            </div>
+                                        </div>
+                                    }
+                                    {data.data && <UserdataHome data={data.data.attributes.usersData} date={date} />}
+                                </main> : <div className='flex justify-center h-full w-full items-center lg:ms-[20%]'>
+                                    <div className='loader-x'></div>
                                 </div>
-                                {data.length ? <Cards data={data} /> : <center className='mt-12 text-2xl'>Choose Date only in the november month</center>}
-                            </div>
-                            <div className='flex px-5 gap-5'>
-                                <div className='h-[20rem] basis-2/3 bg-white rounded-xl sm:block hidden shadowx'></div>
-                                <div className='sm:basis-1/3 w-full bg-white h-[20rem] shadowx rounded-xl py-2 flex justify-center'>
-                                    {data.length && <IncomeGraph data={data} />}
-                                </div>
-                            </div>
-                            {data.length && <UserdataHome data={data[0].attributes.usersData} date={date} />}
-                        </main>
+                        }
                     </div>
-                </div>
+                </div >
             }
         </>
     )

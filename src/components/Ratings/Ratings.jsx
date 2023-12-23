@@ -4,8 +4,8 @@ import { FaRegStar } from 'react-icons/fa6'
 
 const Ratings = ({ data }) => {
 
+    const averageRating = data.attributes.usersData.reduce((i, next) => i + next.rating, 0) / data.attributes.usersData.length
 
-    const averageRating = data[0].attributes.usersData.reduce((i, next) => i + next.rating, 0) / data[0].attributes.usersData.length
 
     const renderstars = () => {
         const fullStars = Math.floor(averageRating)
@@ -17,12 +17,12 @@ const Ratings = ({ data }) => {
             stars.push(<FaStar key={i} fill='#000011' className='text-[1.2rem]' />)
         }
         if (hasHalfStars) {
-            stars.push(<FaStarHalfAlt key="half" color="black text-[1.6rem]" />);
+            stars.push(<FaStarHalfAlt key="half" fill='black' className=" text-[1.1rem]" />);
             const val = fullStars + 1
             if (val < 5) {
                 let index = 5 - val
                 for (let i = 0; i < index; i++) {
-                    stars.push(<FaRegStar key={val + 1} fill='black text-[2rem]' />)
+                    stars.push(<FaRegStar key={val + 1} fill='black' className='text-[1.17rem]' />)
                 }
             }
         }
@@ -31,7 +31,7 @@ const Ratings = ({ data }) => {
     return (
         <p className='flex gap-1 items-center lg:pt-2 pt-1'>
             {renderstars()}
-            {`(${data[0].attributes.usersData.length})`}
+            {`(${data.attributes.usersData.length})`}
         </p>
     )
 }

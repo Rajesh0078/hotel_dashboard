@@ -12,11 +12,11 @@ const Cards = ({ data }) => {
                     </div>
                     <div className='text-center text-black'>
                         <p className='text-md '>Total Bookings</p>
-                        <p className='md:text-2xl text-xl font-semibold'>{data.length && data[0].attributes.roomBookings.totalBookings}</p>
+                        <p className='md:text-2xl text-xl font-semibold'>{data && data.attributes.roomBookings.totalBookings}</p>
                     </div>
                 </div>
                 <div className='bg-slate-300 h-[.8rem] md:mt-11 mt-6'>
-                    <div style={{ width: `${(data[0].attributes.roomBookings.totalBookings) * 100 / 40}%` }} className='bg-purple-600 h-full transition-all'></div>
+                    <div style={{ width: `${(data.attributes.roomBookings.totalBookings) * 100 / 40}%` }} className='bg-purple-600 h-full transition-all'></div>
                 </div>
             </div>
             <div className='px-5 py-6 card'>
@@ -26,11 +26,11 @@ const Cards = ({ data }) => {
                     </div>
                     <div className='text-center text-black'>
                         <p className='text-md '>Rooms Available</p>
-                        <p className='md:text-2xl text-xl font-semibold'>{data.length && (40 - data[0].attributes.roomBookings.totalBookings)}</p>
+                        <p className='md:text-2xl text-xl font-semibold'>{data && (40 - data.attributes.roomBookings.totalBookings)}</p>
                     </div>
                 </div>
                 <div className='bg-slate-300 h-[.8rem] md:mt-11 mt-6'>
-                    <div style={{ width: `${(40 - data[0].attributes.roomBookings.totalBookings) * 100 / 40}%` }} className='bg-yellow-500 h-full transition-all'></div>
+                    <div style={{ width: `${(40 - data.attributes.roomBookings.totalBookings) * 100 / 40}%` }} className='bg-yellow-500 h-full transition-all'></div>
                 </div>
             </div>
             <div className='px-5 py-6 card'>
@@ -40,11 +40,11 @@ const Cards = ({ data }) => {
                     </div>
                     <div className='text-center text-black'>
                         <p className='text-md '>Occupancy Rate</p>
-                        <p className='md:text-2xl text-xl font-semibold'>{data.length && (data[0].attributes.occupancyRate)}%</p>
+                        <p className='md:text-2xl text-xl font-semibold'>{data && (data.attributes.occupancyRate)}%</p>
                     </div>
                 </div>
                 <div className='bg-slate-300 h-[.8rem] md:mt-11 mt-6'>
-                    <div style={{ width: `${data.length && (data[0].attributes.occupancyRate)}%` }} className='bg-green-600 h-full transition-all'></div>
+                    <div style={{ width: `${data && (data.attributes.occupancyRate)}%` }} className='bg-green-600 h-full transition-all'></div>
                 </div>
             </div>
             <div className='px-5 py-6 card'>
@@ -54,11 +54,11 @@ const Cards = ({ data }) => {
                     </div>
                     <div className='text-center text-black'>
                         <p className='text-md '>Toatal Revenue</p>
-                        <p className='md:text-2xl text-xl font-semibold'>₹ {data.length && (data[0].attributes.totalRevenue)}</p>
+                        <p className='md:text-2xl text-xl font-semibold'>₹ {data && (data.attributes.totalRevenue)}</p>
                     </div>
                 </div>
                 <div className='bg-slate-300 h-[.8rem] md:mt-11 mt-6'>
-                    <div style={{ width: `${(data[0].attributes.totalRevenue) / (129500) * 100}%` }} className='bg-blue-400 h-full transition-all'></div>
+                    <div style={{ width: `${(data.attributes.totalRevenue) / (129500) * 100}%` }} className='bg-blue-400 h-full transition-all'></div>
                 </div>
             </div>
         </div>

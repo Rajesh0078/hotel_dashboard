@@ -25,3 +25,10 @@
 .z_index{
     z-index: 1000;
 }
+
+.there{
+    transform: scaleX(1);
+}
+.not{
+    transform: scaleX(0);
+}
