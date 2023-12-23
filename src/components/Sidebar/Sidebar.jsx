@@ -28,7 +28,7 @@ const Sidebar = ({ user }) => {
                     <div className='lg:block hidden'>
                         <img src="/assets/logo.png" alt="logo" className='w-[8rem] ' />
                     </div>
-                    <div className='flex lg:hidden items-center gap-9'>
+                    <div className='flex lg:hidden items-center gap-9 pt-3'>
                         <img src="/assets/logo.png" alt="logo" className='w-[6rem] ' />
                         <GiCrossedBones className='text-blue-400 text-xl cursor-pointer' onClick={sideBarHandler} />
                     </div>

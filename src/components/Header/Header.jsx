@@ -48,20 +48,22 @@ const Header = () => {
 
     return (
         <header className='shadow-xl bg-white flex justify-between items-center px-6 py-2 '>
-            <div className='flex items-center gap-5'>
-                <FaBars className='text-xl cursor-pointer lg:hidden' onClick={sideBarHandler} />
+            <div className='flex items-center gap-3'>
+                <FaBars className='text-2xl cursor-pointer lg:hidden' onClick={sideBarHandler} />
                 <h1 className='font-bold hidden lg:block'>Dashboard</h1>
                 <img src="/assets/logo.png" alt="logo" className='w-[6rem] lg:hidden ' />
             </div>
             <div className='flex items-center gap-2 relative'>
                 <FiBell className='mt-1 text-3xl rounded-full hover:bg-gray-100 p-1' />
                 <div className='flex items-center gap-2 hover:bg-gray-100 p-1 rounded cursor-pointer' onClick={profileBlockHandler}>
-                    <span className="font-medium">
+                    <span className="font-medium text-[1.1rem] sm:text-sm">
                         {
                             userx && userx.username
                         }
                     </span>
-                    <FaUserCircle className='text-2xl' />
+                    {
+                        userx.image ? <div className='h-10 w-[2.5rem] overflow-hidden rounded-full'><img src={`https://hotel-dashboard-w4kx.onrender.com${userx.image.url}`} alt="" className='scale-[2] mt-4 object-cover object-center' /></div> : <FaUserCircle className='sm:text-2xl text-3xl' />
+                    }
                 </div>
                 {
                     isProfileBlockOpen &&
