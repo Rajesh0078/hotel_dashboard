@@ -25,6 +25,7 @@ const Login = () => {
         email: '',
         password: ''
     })
+    const [isLoading, setIsLoading] = useState(false)
 
     const blurHandler = (e) => {
         const { value, name } = e.target
@@ -51,9 +52,9 @@ const Login = () => {
             }
         })
         if (data) {
+            setIsLoading(false)
             toast.success("Logged in successfully!")
             const userx = JSON.stringify(data)
-            console.log(data)
             dispatch(fetchUserSuccess(userx))
             localStorage.setItem('user', userx)
             navigate('/')
@@ -62,6 +63,7 @@ const Login = () => {
 
     const loginHandler = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         if (formData.email.length) {
             try {
                 const { data } = await axios.post('https://hotel-dashboard-w4kx.onrender.com/api/auth/local', { identifier: formData.email, password: formData.password })
@@ -81,49 +83,66 @@ const Login = () => {
             <div className='img_container hidden md:block'>
                 <img src="/assets/4433257_2352520.jpg" alt="pic-1" />
             </div>
-            <div className='login_content my-auto'>
-                <b className='text-3xl'>Welcome to Spark Hotels</b>
-                <p className='text-[#96a2b4] mt-2 mb-6 text-md'>Need an account? <Link to={'/auth/signup'} className=" text-purple-600 text-xl font-medium">Sign Up</Link></p>
-                <h2 className='text-3xl font-semibold'>Sign in</h2>
-                <form className='mt-6'>
-                    <div className='relative mb-3 h-[5rem] '>
-                        <label htmlFor="email" className={`${isValid.email ? "activex" : ""} label-x`}>Email*</label>
-                        <input type="text" id='email' name='email' className='border border-gray-500 outline-none w-full p-4 bg-transparent rounded-md'
-                            onBlur={blurHandler}
-                            onFocus={focusHandler}
-                            onChange={changeHandler}
-                            autoComplete='off'
-                        />
-                        {!isThere.email && <p className='text-red-600 text-xs ps-2 pt-1'>Email is required</p>}
-                    </div>
-                    <div className='relative mb-3 h-[5rem]'>
-                        <label htmlFor="password" className={`${isValid.password ? "activex" : ""} label-x`}>Password*</label>
-                        <input type="password" id='password' name='password' className='border border-gray-500 outline-none w-full p-4 bg-transparent rounded-md'
-                            onFocus={focusHandler}
-                            onBlur={blurHandler}
-                            onChange={changeHandler}
-                            autoComplete='off'
-                        />
-                        {!isThere.password && <p className='text-red-600 text-xs ps-2 pt-1'>Password is required</p>}
-                    </div>
-                    <div className='flex relative justify-between'>
-                        <div className='flex items-center'>
-                            <input type="checkbox" name="remember" id="remember" className='me-1 ' />
-                            <label htmlFor="remember" className='text-md '>Remember</label>
+            {
+                <div className='login_content my-auto'>
+                    <b className='text-3xl'>Welcome to Spark Hotels</b>
+                    <p className='text-[#96a2b4] mt-2 mb-6 text-md'>Need an account? <Link to={'/auth/signup'} className=" text-purple-600 text-xl font-medium">Sign Up</Link></p>
+                    <h2 className='text-3xl font-semibold'>Sign in</h2>
+                    <form className='mt-6'>
+                        <div className='relative mb-3 h-[5rem] '>
+                            <label htmlFor="email" className={`${isValid.email ? "activex" : ""} label-x`}>Email*</label>
+                            <input type="text" id='email' name='email' className='border border-gray-500 outline-none w-full p-4 bg-transparent rounded-md'
+                                onBlur={blurHandler}
+                                onFocus={focusHandler}
+                                onChange={changeHandler}
+                                autoComplete='off'
+                            />
+                            {!isThere.email && <p className='text-red-600 text-xs ps-2 pt-1'>Email is required</p>}
                         </div>
-                        <p>Forgot Password?</p>
+                        <div className='relative mb-3 h-[5rem]'>
+                            <label htmlFor="password" className={`${isValid.password ? "activex" : ""} label-x`}>Password*</label>
+                            <input type="password" id='password' name='password' className='border border-gray-500 outline-none w-full p-4 bg-transparent rounded-md'
+                                onFocus={focusHandler}
+                                onBlur={blurHandler}
+                                onChange={changeHandler}
+                                autoComplete='off'
+                            />
+                            {!isThere.password && <p className='text-red-600 text-xs ps-2 pt-1'>Password is required</p>}
+                        </div>
+                        <div className='flex relative justify-between'>
+                            <div className='flex items-center'>
+                                <input type="checkbox" name="remember" id="remember" className='me-1 ' />
+                                <label htmlFor="remember" className='text-md '>Remember</label>
+                            </div>
+                            <p>Forgot Password?</p>
 
+                        </div>
+                        {!isLoading ?
+                            <button className='btn mt-10' disabled={!formData.email || !formData.password} onClick={loginHandler}>Login</button> :
+                            <div className='border text-center py-1 text-black mt-10 '>
+                                <section>
+                                    <div className="loading loading05">
+                                        <span>L</span>
+                                        <span>O</span>
+                                        <span>A</span>
+                                        <span>D</span>
+                                        <span>I</span>
+                                        <span>N</span>
+                                        <span>G</span>
+                                    </div>
+                                </section>
+                            </div>
+                        }
+                    </form>
+                    <p className='text-center my-5'>or</p>
+                    <div className='flex gap-8 justify-center text-gray-500'>
+                        <FaGoogle className='cursor-pointer' />
+                        <FaTwitter className='cursor-pointer' />
+                        <FaFacebookSquare className='cursor-pointer' />
+                        <FaLinkedin className='cursor-pointer' />
                     </div>
-                    <button className='btn mt-10' disabled={!formData.email || !formData.password} onClick={loginHandler}>Login</button>
-                </form>
-                <p className='text-center my-5'>or</p>
-                <div className='flex gap-8 justify-center text-gray-500'>
-                    <FaGoogle className='cursor-pointer' />
-                    <FaTwitter className='cursor-pointer' />
-                    <FaFacebookSquare className='cursor-pointer' />
-                    <FaLinkedin className='cursor-pointer' />
                 </div>
-            </div>
+            }
         </div>
     )
 }

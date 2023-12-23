@@ -31,6 +31,61 @@
     padding: 0 .5rem;
 }
 
+.loading {
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-align: center;
+    span {
+      display: inline-block;
+      margin: .2rem;
+    }
+  }
+
+  .loading05 {
+    perspective: 1000px;
+  }
+  
+  .loading05 span {
+    transform-origin: 50% 50% -.5rem;
+    transform-style: preserve-3d;
+    animation: loading05 1.6s infinite;
+  }
+  
+  .loading05 span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .loading05 span:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  .loading05 span:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  
+  .loading05 span:nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  
+  .loading05 span:nth-child(6) {
+    animation-delay: 0.5s;
+  }
+  
+  .loading05 span:nth-child(7) {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes loading05 {
+    0% {
+      transform: rotateX(-360deg);
+    }
+    70% {
+      transform: rotateX(0);
+    }
+  }
+  
+
 @media screen and (max-width:768px) {
     .login_content{
         padding: 4rem 5rem;

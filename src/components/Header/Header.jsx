@@ -62,7 +62,7 @@ const Header = () => {
                         }
                     </span>
                     {
-                        userx.image ? <div className='h-10 w-[2.5rem] overflow-hidden rounded-full'><img src={`https://hotel-dashboard-w4kx.onrender.com${userx.image.url}`} alt="" className='scale-[2] mt-4 object-cover object-center' /></div> : <FaUserCircle className='sm:text-2xl text-3xl' />
+                        user && userx.image ? <div className='h-10 w-[2.5rem] overflow-hidden rounded-full'><img src={`https://hotel-dashboard-w4kx.onrender.com${userx.image.url}`} alt="" className='scale-[2] mt-4 object-cover object-center' /></div> : <FaUserCircle className='sm:text-2xl text-3xl' />
                     }
                 </div>
                 {
