@@ -1,0 +1,19 @@
+tr,th{
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+    padding:12px 8px;
+}
+th{
+    color: rgb(99, 97, 97);
+    font-weight: 500;
+    background-color: rgb(241, 236, 236)
+}
+td{
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+.flow::-webkit-scrollbar{
+    width: 0;
+}

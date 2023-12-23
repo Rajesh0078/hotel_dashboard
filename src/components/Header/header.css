@@ -1,0 +1,11 @@
+.account_info{
+    position: absolute;
+    top: 108%;
+    right: 5%;
+    width: 12rem;
+    min-width: auto;
+    z-index: 1000;
+    background-color: white;
+    border-radius: .3rem;
+    box-shadow: 1px 1px .8rem rgba(0, 0, 0, .3);
+}

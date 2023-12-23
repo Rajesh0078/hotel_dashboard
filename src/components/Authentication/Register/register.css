@@ -1,0 +1,56 @@
+.image{
+    mix-blend-mode: multiply;
+}
+.form_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.auth_wrapper{
+    width: 26rem;
+    max-width: 100%;
+}
+input{
+    outline: none;
+    width: 94%;
+    z-index: 100;
+}
+.border_x{
+    border: 1px solid #c4c6c4;
+}
+.btn{
+    width: 100%;
+    background-color: blue;
+    text-align: center;
+    color: white;
+    padding: 1rem 0;
+    border-radius: 8px;
+}
+.active_x{
+    font-size: .9rem;
+    top: -19%;
+    background-color: white;
+    z-index: 1;
+    color: rgb(114, 114, 114);
+    padding: 0 .5rem;
+}
+button:disabled{
+    background-color: rgb(182, 182, 182);
+    cursor:not-allowed;
+}
+
+
+@media screen and (max-width:380px) {
+    .auth_wrapper{
+        min-width: 16rem;
+        width: 20rem;
+        max-width: 100%;
+    }
+    input{
+        outline: none;
+        width: 90%;
+        z-index: 100;
+    }
+}
