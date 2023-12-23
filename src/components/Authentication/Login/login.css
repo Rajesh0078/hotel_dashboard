@@ -36,10 +36,11 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     text-align: center;
-    span {
-      display: inline-block;
-      margin: .2rem;
-    }
+    
+  }
+  .loading span {
+    display: inline-block;
+    margin: .2rem;
   }
 
   .loading05 {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './login.css'
 import { Link } from 'react-router-dom'
 import { FaFacebookSquare, FaGoogle, FaLinkedin, FaTwitter } from "react-icons/fa"
@@ -72,6 +72,7 @@ const Login = () => {
                 }
             } catch (error) {
                 if (error.response) {
+                    setIsLoading(false)
                     toast.error(error.response.data.error.message)
                 }
             }
