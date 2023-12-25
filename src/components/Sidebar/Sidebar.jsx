@@ -36,7 +36,7 @@ const Sidebar = ({ user }) => {
                         <div>
                             <div className='w-[6rem] h-[6rem] mx-auto overflow-hidden shadowx rounded-xl'>
                                 {
-                                    user.image && <img src={`https://hotel-dashboard-w4kx.onrender.com${user.image.url}`} alt="rajesh" className='profile_img object-center object-cover mt-[-.4rem]' />
+                                    user.image && <img src={`${user.image.url}`} alt="rajesh" className='profile_img object-center object-cover mt-[-.4rem]' />
                                 }
                             </div>
                             <p className='my-2 text-gray-900'> {user && user.username}</p>
