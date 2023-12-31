@@ -52,23 +52,23 @@ const Sidebar = ({ user }) => {
                             </div>
                         </div>
                         <nav className='flex flex-col text-left text-sm lg:text-md'>
-                            <NavLink to={'/'} className='mx-3 rounded-xl text-gray-700 p-2'>
+                            <NavLink to={'/'} className='mx-3 rounded-xl text-gray-700 p-2' onClick={sideBarHandler}>
                                 <FaHouse className='inline me-3' />
                                 <span>Home</span>
                             </NavLink>
-                            <NavLink to={'/bookings'} className='mx-3 rounded-xl text-gray-700 p-2'>
+                            <NavLink to={'/bookings'} className='mx-3 rounded-xl text-gray-700 p-2' onClick={sideBarHandler}>
                                 <MdBorderColor className='inline me-3' />
                                 <span>Booking</span>
                             </NavLink>
-                            <NavLink to={'/rooms'} className='mx-3 rounded-xl text-gray-700 p-2'>
+                            <NavLink to={'/rooms'} className='mx-3 rounded-xl text-gray-700 p-2' onClick={sideBarHandler}>
                                 <FaDoorOpen className='inline me-3' />
                                 <span>Rooms</span>
                             </NavLink>
-                            <NavLink to={'/departments'} className='mx-3 rounded-xl text-gray-700 p-2'>
+                            <NavLink to={'/departments'} className='mx-3 rounded-xl text-gray-700 p-2' onClick={sideBarHandler}>
                                 <BsIntersect className='inline me-3' />
                                 <span>Departments</span>
                             </NavLink>
-                            <NavLink to={'/staff'} className='mx-3 rounded-xl text-gray-700 p-2'>
+                            <NavLink to={'/staff'} className='mx-3 rounded-xl text-gray-700 p-2' onClick={sideBarHandler}>
                                 <FaUserTie className='inline me-3' />
                                 <span>Staff</span>
                             </NavLink>
