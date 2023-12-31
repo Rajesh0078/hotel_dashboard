@@ -55,6 +55,7 @@ const Login = () => {
             setIsLoading(false)
             toast.success("Logged in successfully!")
             const userx = JSON.stringify(data)
+            console.log(data)
             dispatch(fetchUserSuccess(userx))
             localStorage.setItem('user', userx)
             navigate('/')
@@ -69,6 +70,7 @@ const Login = () => {
                 const { data } = await axios.post('https://hotel-dashboard-w4kx.onrender.com/api/auth/local', { identifier: formData.email, password: formData.password })
                 if (data.jwt) {
                     getUser(data.jwt)
+                    localStorage.setItem('jwt', data.jwt)
                 }
             } catch (error) {
                 if (error.response) {

@@ -7,6 +7,7 @@ import { BsIntersect } from "react-icons/bs";
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { sideBarAction } from '../../store/actions/sidebarAction';
+import ProfilePic from '../Profile/ProfilePic';
 
 const Sidebar = ({ user }) => {
 
@@ -20,6 +21,8 @@ const Sidebar = ({ user }) => {
             dispatch(sideBarAction(true))
         }
     }
+
+
 
     return (
         <>
@@ -36,7 +39,8 @@ const Sidebar = ({ user }) => {
                         <div>
                             <div className='w-[6rem] h-[6rem] mx-auto overflow-hidden shadowx rounded-xl'>
                                 {
-                                    user.image && <img src={`${user.image.url}`} alt="rajesh" className='profile_img object-center object-cover mt-[-.4rem]' />
+                                    user.image ? <img src={`${user.image.url}`} alt="rajesh" className='profile_img object-center object-cover mt-[-.4rem]' /> :
+                                        <ProfilePic />
                                 }
                             </div>
                             <p className='my-2 text-gray-900'> {user && user.username}</p>

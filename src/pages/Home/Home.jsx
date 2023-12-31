@@ -12,6 +12,7 @@ import 'react-calendar/dist/Calendar.css';
 import Ratings from '../../components/Ratings/Ratings'
 import IncomeGraph from '../../components/Graphs/IncomeGraph'
 import UserdataHome from '../../components/Home_Cards/UserdataHome'
+import RevenueChart from '../../components/Graphs/RevenueChart'
 
 
 const Home = () => {
@@ -119,8 +120,10 @@ const Home = () => {
                                         {data.data ? <Cards data={data.data} /> : <center className='mt-12 text-2xl '>Choose Date only in the november month</center>}
                                     </div>
                                     {data.data &&
-                                        <div className='flex px-5 gap-5'>
-                                            <div className='h-[20rem] basis-2/3 bg-white rounded-xl sm:block hidden shadowx'></div>
+                                        <div className='flex px-5 gap-5 flex-wrap sm:flex-nowrap'>
+                                            <div className='h-[20rem] sm:basis-2/3 bg-white rounded-xl shadowx w-full'>
+                                                <RevenueChart data={data.data.attributes} />
+                                            </div>
                                             <div className='sm:basis-1/3 w-full bg-white h-[20rem] shadowx rounded-xl py-2 flex justify-center'>
                                                 {data.data && <IncomeGraph data={data.data} />}
                                             </div>
