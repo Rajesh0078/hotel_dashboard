@@ -46,7 +46,7 @@ const Booking = () => {
     const searchhandler = (e) => {
         const { value } = e.target
         const res = data.filter((i) => i.name.toLowerCase().includes(value.toLowerCase()))
-        if (value.length >= 1) {
+        if (value.length > 2) {
             setSearchedData(res)
         }
         else {
