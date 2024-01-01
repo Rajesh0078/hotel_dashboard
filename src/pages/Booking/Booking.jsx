@@ -13,6 +13,7 @@ const Booking = () => {
     const { decision } = useSelector((user) => user.sidebarReducer)
     const [data, setData] = useState([])
     const [searchedData, setSearchedData] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
     const [date, setDate] = useState(new Date(2023, 10, 10))
 
     const navigation = () => {
@@ -37,7 +38,6 @@ const Booking = () => {
     }
 
 
-
     useEffect(() => {
         navigation()
         gettingData()
@@ -54,6 +54,43 @@ const Booking = () => {
         }
     }
 
+    const getPageNo = () => {
+        if (data.length) {
+            const totalPages = Math.ceil(data.length / 10);
+            const pagesToShow = 5
+
+            const start = Math.max(1, currentPage - Math.floor(pagesToShow / 2))
+            const end = Math.min(totalPages, start + pagesToShow - 1)
+
+            const pageNum = Array.from({ length: end - start + 1 }, (_, index) => {
+                return <span key={index} onClick={() => { setCurrentPage(start + index) }} className={`px-2 py-1 border mx-1 text-white ${start + index === currentPage ? 'bg-blue-500 ' : ""}`}>{start + index}</span>
+            })
+            return pageNum
+        }
+    }
+
+    const dataShow = () => {
+        let itemsPerPage = 10;
+        let startIndex = currentPage * itemsPerPage - itemsPerPage
+        let endIndex = currentPage * itemsPerPage
+        let datax = data.slice(startIndex, endIndex)
+        let res = datax.map((i, index) => {
+            return <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{i.name}</td>
+                <td>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</td>
+                <td>{`${date.getDate() + Math.floor(Math.random() * 3)}-${date.getMonth() + 1}-${date.getFullYear()}`}</td>
+                <td>{i.paidStatus ? <span className='text-green-700 border p-1 rounded-md border-green-700 text-sm'>Paid</span> : <span className='text-red-600 border p-1 rounded-md border-red-600 text-xs'>Not Paid</span>}</td>
+                <td>{i.phoneNumber}</td>
+                <td>{i.roomType}</td>
+                <td className='text-xl'>
+                    <MdEditSquare className='inline me-4 text-blue-500' />
+                    <MdDelete className='inline text-red-700 cursor-pointer' />
+                </td>
+            </tr>
+        })
+        return res
+    }
 
     return (
         <>
@@ -84,12 +121,17 @@ const Booking = () => {
                                     <span className='ms-2'>all</span>
                                 </div>
                                 <div className=' w-full bg-white mt-6 rounded shadowx'>
-                                    <section className='bg-slate-400 '>
-                                        <div className='flex items-center gap-5 px-4 py-2'>
-                                            <span className='text-gray-800'>All Booking</span>
-                                            <div className='bg-white p-2 flex items-center gap-2 text-gray-800'>
-                                                <FaSearch className='' />
-                                                <input type="text" className='outline-none ' onChange={searchhandler} />
+                                    <section className='bg-slate-400 w-full'>
+                                        <div className='flex items-center justify-between gap-5 px-4 py-2 w-full'>
+                                            <div className='flex items-center gap-5 sm:justify-start justify-between w-full'>
+                                                <span className='text-gray-800'>All Booking</span>
+                                                <div className='bg-white p-2 flex items-center gap-2 text-gray-800'>
+                                                    <FaSearch className='' />
+                                                    <input type="text" className='outline-none ' onChange={searchhandler} />
+                                                </div>
+                                            </div>
+                                            <div className='sm:block hidden'>
+                                                {getPageNo()}
                                             </div>
                                         </div>
                                         <div className='bg-white py-2 px-4'>
@@ -123,27 +165,16 @@ const Booking = () => {
                                                                             <MdDelete className='inline text-red-700 cursor-pointer' />
                                                                         </td>
                                                                     </tr>
-                                                                }) :
-                                                                    data && data.map((i, index) => {
-                                                                        return <tr key={index}>
-                                                                            <td>{index + 1}</td>
-                                                                            <td>{i.name}</td>
-                                                                            <td>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</td>
-                                                                            <td>{`${date.getDate() + Math.floor(Math.random() * 3)}-${date.getMonth() + 1}-${date.getFullYear()}`}</td>
-                                                                            <td>{i.paidStatus ? <span className='text-green-700 border p-1 rounded-md border-green-700 text-sm'>Paid</span> : <span className='text-red-600 border p-1 rounded-md border-red-600 text-xs'>Not Paid</span>}</td>
-                                                                            <td>{i.phoneNumber}</td>
-                                                                            <td>{i.roomType}</td>
-                                                                            <td className='text-xl'>
-                                                                                <MdEditSquare className='inline me-4 text-blue-500' />
-                                                                                <MdDelete className='inline text-red-700 cursor-pointer' />
-                                                                            </td>
-                                                                        </tr>
-                                                                    })
+                                                                }) : dataShow()
                                                             }
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
+
+                                        </div>
+                                        <div className='block sm:hidden text-black py-3 text-center'>
+                                            {getPageNo()}
                                         </div>
                                     </section>
                                 </div>
